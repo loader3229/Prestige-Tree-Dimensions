@@ -1,7 +1,7 @@
 let modInfo = {
 	name: "The Prestige Tree Dimensions",
 	id: "ptdim",
-	author: "qq1010903229",
+	author: "qq1010903229 (loader3229)",
 	pointsName: "points",
 	discordName: "",
 	discordLink: "",
@@ -28,19 +28,19 @@ let changelog = `
 	
 <h1>Changelog:</h1><br>
 	<h3>v0.2.3</h3><br>
-	- Implemented the Hindrance layer (unbalanced)<br>
+	- Implemented the Hindrance(H) layer (unbalanced)<br>
 	<h3>v0.2.2</h3><br>
-	- Rebalanced the Time Capsule layer<br>
-	- Implemented the Super-Booster layer<br>
+	- Rebalanced the Time Capsule(T) layer<br>
+	- Implemented the Super-Booster(SB) layer<br>
 	- Balanced up to 1e19000 points<br>
 	<h3>v0.2.1</h3><br>
-	- Implemented the Enhance layer<br>
+	- Implemented the Enhance(E) layer<br>
 	- Balanced up to 1e6000 points<br>
 	<h3>v0.2</h3><br>
-	- Implemented the Space Energy layer<br>
+	- Implemented the Space Energy(S) layer<br>
 	- Balanced up to 1e1600 points<br>
 	<h3>v0.1</h3><br>
-	- Implemented all row 1 & 2 prestige layers and the Time Capsule layer<br>
+	- Implemented all row 1 & 2 prestige layers(P,B,G) and the Time Capsule(T) layer<br>
 	- Balanced up to 1e280 points
 `
 
