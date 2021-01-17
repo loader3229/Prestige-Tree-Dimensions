@@ -20,9 +20,9 @@ let changelog = `
 
 
 <h1>Future Plans:</h1><br>
-    - Add Booster Dimensions (produce booster boosts)
-    - Add Generator Dimensions (produce extra generators)
-    - Add the second Prestige Dimension
+    - Add Booster Dimensions (produce booster boosts)<br>
+    - Add Generator Dimensions (produce extra generators)<br>
+    - Add the second Prestige Dimension (8 in far future)<br>
 	- Rebalance the Hindrance(H) layer<br>
 	- Implement the Quirks(Q) layer in the original game<br>
 	
