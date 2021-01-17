@@ -77,12 +77,13 @@ addLayer("p", {
             cols: 3,
 			11: {
                 description: "Point generation is faster based on your unspent Prestige Points.",
-                cost: new Decimal(500),
+                cost: new Decimal(40),
                 unlocked() { return player[this.layer].dim.gt(0) || player.b.unlocked /*|| player.g.unlocked*/ }, // The upgrade is only visible when this is true
 				effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
 					let base=3;
 					if(hasUpgrade("g",21))base+=0.2;
                     let ret = Decimal.pow(base,Decimal.log10(player[this.layer].points.add(1)).pow(0.9))
+					if(ret.lt(10000))ret=ret.pow(3/4).mul(10);
                     //if (ret.gte("1e20000000")) ret = ret.sqrt().times("1e10000000")
                     return ret;
                 },
@@ -236,6 +237,9 @@ addLayer("p", {
 		 if(player.g.best.gte(14))return 1;
 		 return 0;
 	 },
+	 hotkeys: [
+           {key: "p", description: "P: Prestige reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 addLayer("b", {
@@ -408,6 +412,9 @@ addLayer("b", {
                         {}],
 						"milestones",
                    "upgrades"],
+	 hotkeys: [
+           {key: "b", description: "B: Booster reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 
@@ -623,6 +630,9 @@ addLayer("g", {
 	 },resetsNothing(){
 		 return player.s.best.gte(9);
 	 },
+	 hotkeys: [
+           {key: "g", description: "G: Generator reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 addLayer("t", {
@@ -854,6 +864,9 @@ addLayer("t", {
 	 },resetsNothing(){
 		 return player.h.best.gte(30);
 	 },
+	 hotkeys: [
+           {key: "t", description: "T: Time reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 addLayer("s", {
@@ -1231,6 +1244,9 @@ addLayer("s", {
 	 },resetsNothing(){
 		 return player.h.best.gte(5000);
 	 },
+	 hotkeys: [
+           {key: "s", description: "S: Space reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 addLayer("e", {
@@ -1477,6 +1493,9 @@ addLayer("e", {
 			if(player.h.best.gte(1))return false;
 		 return true;
 	    },
+	 hotkeys: [
+           {key: "e", description: "E: Enhance reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 addLayer("sb", {
@@ -1587,6 +1606,9 @@ addLayer("sb", {
 	 },resetsNothing(){
 		 return player.h.best.gte(100);
 	 },
+	 hotkeys: [
+           {key: "B", description: "Shift+B: Super-Booster reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 })
 
 
@@ -1746,5 +1768,8 @@ addLayer("h", {
                 rewardDescription() { return "Gain an exponent to Prestige Points gain based on challenge completions." },
             },
         },
+	 hotkeys: [
+           {key: "h", description: "H: Hindrance reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
 		
 })

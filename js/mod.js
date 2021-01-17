@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.3",
+	num: "0.2.4",
 	name: "Same tree with different mechanics",
 }
 
@@ -27,6 +27,9 @@ let changelog = `
 	- Implement the Quirks(Q) layer in the original game<br>
 	
 <h1>Changelog:</h1><br>
+	<h3>v0.2.4</h3><br>
+	- Speeded up the game until early-row 2(B,G)<br>
+	- Added Hotkeys<br>
 	<h3>v0.2.3</h3><br>
 	- Implemented the Hindrance(H) layer (unbalanced)<br>
 	<h3>v0.2.2</h3><br>
