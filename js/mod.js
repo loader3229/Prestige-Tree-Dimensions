@@ -1,5 +1,5 @@
 let modInfo = {
-	name: "The Prestige Tree with Dimensions",
+	name: "The Prestige Tree: Dimensional Respecced",
 	id: "ptdim",
 	author: "qq1010903229 (loader3229)",
 	pointsName: "points",
@@ -12,18 +12,16 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.3.1",
+	num: "0.4",
 	name: "Same tree with different mechanics",
 }
 
 let changelog = `
 
 
-<h1>Future Plans:</h1><br>
-    - Add Generator Dimensions (produce extra generators)<br>
-    - Add the second Prestige Dimension (8 in far future)<br>
-	
 <h1>Changelog:</h1><br>
+	<h3>v0.4</h3><br>
+	- Rewrited the entire game<br>
 	<h3>v0.3.1</h3><br>
 	- Implemented the Quirks(Q) layer<br>
 	- Balanced up to 1e192000 points<br>
@@ -71,8 +69,8 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(1)
-	gain = gain.mul(player.p.dim)
-	gain = gain.mul(buyableEffect("p",11))
+	gain = gain.mul(player.p.dim1)
+	gain = gain.mul(Decimal.pow(2,player.p.buyables[11]));
 	if(hasUpgrade("p",11))gain = gain.mul(upgradeEffect("p",11))
 	if(hasUpgrade("p",12))gain = gain.mul(upgradeEffect("p",12))	
 	if(hasUpgrade("p",21))gain = gain.mul(upgradeEffect("p",21))
@@ -100,7 +98,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(192000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(89000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -109,7 +107,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return hasUpgrade("h",22);
+	return player.points.gte("1e89000");
 }
 
 
@@ -124,7 +122,7 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	if(oldVersion.startsWith("0.2") || oldVersion.startsWith("0.1")){
+	if(oldVersion.startsWith("0.3") || oldVersion.startsWith("0.2") || oldVersion.startsWith("0.1")){
 		alert("Sorry. Your game is completely reset because of balancing.");
 		player = null
 		save();
