@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4",
+	num: "0.4.1",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,8 +20,12 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.4.1</h3><br>
+	- Re-Implemented the Quirks(Q) layer<br>
+	- Balanced up to 1e232000 points<br>
 	<h3>v0.4</h3><br>
 	- Rewrited the entire game<br>
+	- Balanced up to 1e89000 points<br>
 	<h3>v0.3.1</h3><br>
 	- Implemented the Quirks(Q) layer<br>
 	- Balanced up to 1e192000 points<br>
@@ -98,7 +102,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(89000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(232000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -107,7 +111,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("1e89000");
+	return player.points.gte("1e232000");
 }
 
 
