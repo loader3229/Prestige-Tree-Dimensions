@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4.1",
+	num: "0.4.2",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.4.2</h3><br>
+	- Implemented the Super-Generator(SG) layer<br>
+	- Balanced up to 1e477000 points<br>
 	<h3>v0.4.1</h3><br>
 	- Re-Implemented the Quirks(Q) layer<br>
 	- Balanced up to 1e235000 points<br>
@@ -89,10 +92,11 @@ function getPointGen() {
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
+	pointsTotal:new Decimal(0)
 }}
 
 function gamePercentage(p){
-	if(p===undefined || p!=p)p=Decimal.log10(player.points.max(10)).toNumber();/*
+	if(p===undefined || p!=p)p=Decimal.log10(player.pointsTotal.add(10)).toNumber();/*
 	var milestone=[1,6,13,70 ,240,1600,19300,96000];
 	var power=    [1,1,1 ,0.8,0.9,0.7 ,0.8  ,0.8];
 	var t=0;
@@ -102,7 +106,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(235000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(477000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -111,7 +115,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("1e235000");
+	return player.points.gte("1e477000");
 }
 
 

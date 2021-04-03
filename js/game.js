@@ -311,6 +311,7 @@ function gameLoop(diff) {
 	}
 	addTime(diff)
 	player.points = player.points.add(tmp.pointGen.times(diff)).max(0)
+	player.pointsTotal = player.pointsTotal.add(tmp.pointGen.times(diff)).max(0)
 
 	for (x = 0; x <= maxRow; x++){
 		for (item in TREE_LAYERS[x]) {
