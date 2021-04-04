@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.4.2",
+	num: "0.5",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.5</h3><br>
+	- Implemented the Subspace(SS) layer<br>
+	- Balanced up to e2130000 points<br>
 	<h3>v0.4.2</h3><br>
 	- Implemented the Super-Generator(SG) layer<br>
 	- Balanced up to 1e477000 points<br>
@@ -77,7 +80,7 @@ function getPointGen() {
 
 	let gain = new Decimal(1)
 	gain = gain.mul(player.p.dim1)
-	gain = gain.mul(Decimal.pow(2,player.p.buyables[11]));
+	gain = gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[11]));
 	if(hasUpgrade("p",11))gain = gain.mul(upgradeEffect("p",11))
 	if(hasUpgrade("p",12))gain = gain.mul(upgradeEffect("p",12))	
 	if(hasUpgrade("p",21))gain = gain.mul(upgradeEffect("p",21))
@@ -85,8 +88,9 @@ function getPointGen() {
 	gain = gain.mul(tmp.g.getGenPowerEff)
 	gain = gain.mul(tmp.t.getTimeEff)
 	gain = gain.mul(tmp.s.buyables[12].effect);
-	if(hasUpgrade("q",11)) mult =  mult.mul(upgradeEffect("q",11))
+	if(hasUpgrade("q",11))gain = gain.mul(upgradeEffect("q",11))
 	gain = gain.mul(tmp.q.quirkEff)
+	if(hasUpgrade("sb",21))gain = gain.mul(upgradeEffect("sb",21))
 	return gain
 }
 
@@ -106,7 +110,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(477000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(2130000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
