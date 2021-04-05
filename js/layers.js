@@ -2725,7 +2725,7 @@ addLayer("h", {
 		},
 	effectDescription() { // Optional text to describe the effects
            eff = this.effect();
-           return "which are multiplying All Time Dimension productions by "+format(eff);
+           return "which are multiplying All Time Dimension productions and Time Upgrade 11 by "+format(eff);
        },
 	milestones: {
             0: {requirementDescription: "1 Hindrance Spirit",
