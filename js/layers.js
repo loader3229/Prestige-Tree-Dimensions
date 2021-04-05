@@ -2348,7 +2348,7 @@ addLayer("e", {
                 effect(x=player[this.layer].buyables[this.id]) { // Effects of owning x of the items, x is a decimal
 					x=x.mul(tmp.e.getStrength);
 					let eff = [];
-					eff[0]=Decimal.pow(x, 4).mul(Decimal.pow(2, x)).mul(1e3);
+					eff[0]=Decimal.pow(x, 4).mul(Decimal.pow(2, x)).mul(1e3).add(1);
 					eff[1]=Decimal.pow(100,x.pow(1.1));
 					eff[2]=x.sqrt().mul(0.3);
 					eff[3]=x.sqrt().mul(0.004);
