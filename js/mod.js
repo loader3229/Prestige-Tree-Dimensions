@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5.1",
+	num: "0.5.2",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.5.2</h3><br>
+	- Finished the Solarity(O) layer<br>
+	- Balanced up to e7200000 points<br>
 	<h3>v0.5.1</h3><br>
 	- Implemented the Solarity(O) layer<br>
 	- Balanced up to e2670000 points<br>
@@ -113,7 +116,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(2670000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(7200000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -122,7 +125,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("1e2670000");
+	return player.points.gte("1e7200000");
 }
 
 
