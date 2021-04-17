@@ -3006,7 +3006,16 @@ addLayer("h", {
     position: 0,
     startData() { return {
         unlocked: false,
-		points: new Decimal(0)
+		points: new Decimal(0),
+		power: new Decimal(0),
+		dim1: new Decimal(0),
+		dim2: new Decimal(0),
+		dim3: new Decimal(0),
+		dim4: new Decimal(0),
+		dim5: new Decimal(0),
+		dim6: new Decimal(0),
+		dim7: new Decimal(0),
+		dim8: new Decimal(0),
     }},
     color: "#a14040",
     requires: function(){
@@ -3218,7 +3227,7 @@ addLayer("h", {
                 rewardDescription: "Unlock Subspace. Gain 100% of Hindrance Spirit and Quirk gain per second. ",
             },
 			/*51: {
-                name: "A Reference to Automatic Big Crunch in AD?",
+                name: "A Reference to the Automatic Big Crunch",
                 completionLimit: 1,
 			    challengeDescription() {return "Each Dimension produces the Dimension 2 tiers before it. (Applied to layers P, B and G)"},
                 unlocked() { return hasUpgrade("h",23) },
@@ -3226,6 +3235,20 @@ addLayer("h", {
                 currencyDisplayName: "points",
                 currencyInternalName: "points",
                 rewardDescription: "Unlock Magic and Balance. Autobuy Super-Booster Dimensions.",
+            },52: {
+                name: "Impossible?",
+                completionLimit: Infinity,
+			    challengeDescription() {return "You can't start this challenge."},
+                unlocked() { return hasUpgrade("h",31) },
+                goal: function(){return new Decimal(Infinity);},
+                currencyDisplayName: "points",
+                currencyInternalName: "points",
+                rewardEffect() {
+                    let ret = Decimal.pow(10,Decimal.pow(player.h.challenges[52],2));
+                    return ret;
+                },
+                rewardDisplay() { return "Multiply all Time Dimensions by "+format(this.rewardEffect()) },
+                rewardDescription() { return "Time Dimensions are stronger based on challenge completions." },
             },*/
 			
         },
@@ -3297,6 +3320,7 @@ addLayer("h", {
 		
 		update(diff){
 			if(hasUpgrade("h",11))player.g.power=player.g.power.add(upgradeEffect("h",11).mul(diff)).max(0);
+			if(player.h.activeChallenge==52)delete player.h.activeChallenge;
 		},
 	softcap: new Decimal(Infinity),
 	softcapPower: new Decimal(1),
