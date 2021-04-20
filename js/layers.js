@@ -107,7 +107,7 @@ addLayer("p", {
 					if(!hasUpgrade("g",11))return "Req: Generator Upgrade 11";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim2)+" 2nd Prestige Dimensions. ("+format(player.p.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are multiplying 1st Prestige Dimension by "+format(data.effect.pow(0.05))+".<br>":"They are producing "+format(data.effect)+" 1st Prestige Dimensions per second.<br>")+
 					"Cost for Next 2nd Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
@@ -143,7 +143,7 @@ addLayer("p", {
 					if(!hasUpgrade("e",23))return "Req: Enhance Upgrade 23";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim3)+" 3rd Prestige Dimensions. ("+format(player.p.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 1st Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 2nd Prestige Dimensions per second.<br>")+
 					"Cost for Next 3rd Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.e.unlocked }, 
@@ -179,7 +179,7 @@ addLayer("p", {
 					if(player.h.challenges[11]<1)return "Req: Complete H challenge 1";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim4)+" 4th Prestige Dimensions. ("+format(player.p.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 2nd Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 3rd Prestige Dimensions per second.<br>")+
 					"Cost for Next 4th Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -215,7 +215,7 @@ addLayer("p", {
 					if(player.h.challenges[11]<2)return "Req: Complete H challenge 1 2 times";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim5)+" 5th Prestige Dimensions. ("+format(player.p.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 3rd Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 4th Prestige Dimensions per second.<br>")+
 					"Cost for Next 5th Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -251,7 +251,7 @@ addLayer("p", {
 					if(player.h.challenges[11]<3)return "Req: Complete H challenge 1 3 times";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim6)+" 6th Prestige Dimensions. ("+format(player.p.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 4th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 5th Prestige Dimensions per second.<br>")+
 					"Cost for Next 6th Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -287,7 +287,7 @@ addLayer("p", {
 					if(player.h.challenges[11]<4)return "Req: Complete H challenge 1 4 times";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim7)+" 7th Prestige Dimensions. ("+format(player.p.buyables[41])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 6th Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 5th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 6th Prestige Dimensions per second.<br>")+
 					"Cost for Next 7th Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -323,7 +323,7 @@ addLayer("p", {
 					if(player.h.challenges[11]<5)return "Req: Complete H challenge 1 5 times";
                     let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.p.dim8)+" 8th Prestige Dimensions. ("+format(player.p.buyables[42])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 7th Prestige Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 6th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 7th Prestige Dimensions per second.<br>")+
 					"Cost for Next 8th Prestige Dimension: "+format(data.cost)+" prestige points";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -636,27 +636,22 @@ addLayer("p", {
 					}
 				}
 			}
-			if(hasUpgrade("g",11)){
-				player.p.dim1=player.p.dim1.add(tmp.p.buyables[12].effect.mul(diff));
-			}
-			if(hasUpgrade("e",23)){
-				player.p.dim2=player.p.dim2.add(tmp.p.buyables[21].effect.mul(diff));
-			}
-			if(player.h.challenges[11]>=1){
-				player.p.dim3=player.p.dim3.add(tmp.p.buyables[22].effect.mul(diff));
-			}
-			if(player.h.challenges[11]>=2){
-				player.p.dim4=player.p.dim4.add(tmp.p.buyables[31].effect.mul(diff));
-			}
-			if(player.h.challenges[11]>=3){
-				player.p.dim5=player.p.dim5.add(tmp.p.buyables[32].effect.mul(diff));
-			}
-			if(player.h.challenges[11]>=4){
-				player.p.dim6=player.p.dim6.add(tmp.p.buyables[41].effect.mul(diff));
-			}
-			if(player.h.challenges[11]>=5){
-				player.p.dim7=player.p.dim7.add(tmp.p.buyables[42].effect.mul(diff));
-			}
+		if(player.h.activeChallenge==51){
+			if(hasUpgrade("e",23))player.p.dim1=player.p.dim1.add(tmp.p.buyables[21].effect.mul(diff));
+			if(player.h.challenges[11]>=1)player.p.dim2=player.p.dim2.add(tmp.p.buyables[22].effect.mul(diff));
+			if(player.h.challenges[11]>=2)player.p.dim3=player.p.dim3.add(tmp.p.buyables[31].effect.mul(diff));
+			if(player.h.challenges[11]>=3)player.p.dim4=player.p.dim4.add(tmp.p.buyables[32].effect.mul(diff));
+			if(player.h.challenges[11]>=4)player.p.dim5=player.p.dim5.add(tmp.p.buyables[41].effect.mul(diff));
+			if(player.h.challenges[11]>=5)player.p.dim6=player.p.dim6.add(tmp.p.buyables[42].effect.mul(diff));
+		}else{
+			if(hasUpgrade("g",11))player.p.dim1=player.p.dim1.add(tmp.p.buyables[12].effect.mul(diff));
+			if(hasUpgrade("e",23))player.p.dim2=player.p.dim2.add(tmp.p.buyables[21].effect.mul(diff));
+			if(player.h.challenges[11]>=1)player.p.dim3=player.p.dim3.add(tmp.p.buyables[22].effect.mul(diff));
+			if(player.h.challenges[11]>=2)player.p.dim4=player.p.dim4.add(tmp.p.buyables[31].effect.mul(diff));
+			if(player.h.challenges[11]>=3)player.p.dim5=player.p.dim5.add(tmp.p.buyables[32].effect.mul(diff));
+			if(player.h.challenges[11]>=4)player.p.dim6=player.p.dim6.add(tmp.p.buyables[41].effect.mul(diff));
+			if(player.h.challenges[11]>=5)player.p.dim7=player.p.dim7.add(tmp.p.buyables[42].effect.mul(diff));
+		}
 			if(hasUpgrade("p",51) && hasUpgrade("p",52) && player.p.buyables[42].gte(1000)){
 				target=player.p.buyables[42].div(1000).log(1.1).pow(1/1.3).add(1).floor();
 				if(target.gt(player.p.buyables[51])){
@@ -921,10 +916,16 @@ addLayer("b", {
      ],
 	 update(diff){
 		 if(hasUpgrade("t",23))player.b.boost = player.b.boost.add(tmp.b.buyables[11].effect.times(diff)).max(0)
+		if(player.h.activeChallenge==51){
+		 if(player.h.challenges[12]>=2)player.b.dim1 = player.b.dim1.add(tmp.b.buyables[21].effect.times(diff)).max(0)
+		 if(player.h.challenges[12]>=3)player.b.dim2 = player.b.dim2.add(tmp.b.buyables[22].effect.times(diff)).max(0)
+		 if(player.h.challenges[12]>=4)player.b.dim3 = player.b.dim3.add(tmp.b.buyables[31].effect.times(diff)).max(0)
+		}else{
 		 if(player.h.challenges[12]>=1)player.b.dim1 = player.b.dim1.add(tmp.b.buyables[12].effect.times(diff)).max(0)
 		 if(player.h.challenges[12]>=2)player.b.dim2 = player.b.dim2.add(tmp.b.buyables[21].effect.times(diff)).max(0)
 		 if(player.h.challenges[12]>=3)player.b.dim3 = player.b.dim3.add(tmp.b.buyables[22].effect.times(diff)).max(0)
 		 if(player.h.challenges[12]>=4)player.b.dim4 = player.b.dim4.add(tmp.b.buyables[31].effect.times(diff)).max(0)
+		}
 			 if(player.t.best.gte(25)){
 				if(hasUpgrade("t",23)){
 					var target=player.t.energy.add(1).log(100).pow(1/1.35).add(1).floor();
@@ -979,6 +980,7 @@ addLayer("b", {
 					gain=gain.mul(Decimal.pow(2,player.b.buyables[11]));
 					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
 					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
+					if(player.h.activeChallenge==51||player.h.challenges[51])gain = gain.mul(tmp.b.buyables[12].effect.pow(0.05));
 					return gain;
                 },
                 display() { // Everything else displayed in the buyable button after the title
@@ -1018,7 +1020,7 @@ addLayer("b", {
                     if(player.h.challenges[12]<1)return "Req: Complete H challenge 2";
 					let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.b.dim2)+" 2nd Booster Dimensions. ("+format(player.b.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Booster Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are multiplying 1st Booster Dimensions by "+format(data.effect.pow(0.05))+".<br>":"They are producing "+format(data.effect)+" 1st Booster Dimensions per second.<br>")+
 					"Cost for Next 2nd Booster Dimension: "+format(data.cost)+" Time Energy";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -1051,7 +1053,7 @@ addLayer("b", {
                     if(player.h.challenges[12]<2)return "Req: Complete H challenge 2 2 times";
 					let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.b.dim3)+" 3rd Booster Dimensions. ("+format(player.b.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Booster Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 1st Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 2nd Booster Dimensions per second.<br>")+
 					"Cost for Next 3rd Booster Dimension: "+format(data.cost)+" Time Energy";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -1084,7 +1086,7 @@ addLayer("b", {
                     if(player.h.challenges[12]<3)return "Req: Complete H challenge 2 3 times";
 					let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.b.dim4)+" 4th Booster Dimensions. ("+format(player.b.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Booster Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 2nd Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 3rd Booster Dimensions per second.<br>")+
 					"Cost for Next 4th Booster Dimension: "+format(data.cost)+" Time Energy";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -1117,7 +1119,7 @@ addLayer("b", {
                     if(player.h.challenges[12]<4)return "Req: Complete H challenge 2 4 times";
 					let data = tmp[this.layer].buyables[this.id]
                     return "You have "+format(player.b.dim5)+" 5th Booster Dimensions. ("+format(player.b.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Booster Dimensions per second.<br>"+
+                    (player.h.activeChallenge==51?"They are producing "+format(data.effect)+" 3rd Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 4th Booster Dimensions per second.<br>")+
 					"Cost for Next 5th Booster Dimension: "+format(data.cost)+" Time Energy";
                 },
                 unlocked() { return player.h.unlocked }, 
@@ -2956,6 +2958,15 @@ addLayer("sb", {
      ],
 	 update(diff){
 		 if(hasUpgrade("sb",23))player.sb.boost = player.sb.boost.add(tmp.sb.buyables[11].effect.times(diff)).max(0)
+		if(player.h.challenges[51]){
+			if(hasUpgrade("sb",23)){
+				target=player.o.energy.add(1).log(100).pow(1/1.35).add(1).floor();
+				if(target.gt(player.sb.buyables[11])){
+					player.sb.dim1=player.sb.dim1.add(target.sub(player.sb.buyables[11]));
+					player.sb.buyables[11]=target;
+				}
+			}
+		}
 	 },
 	 boostEffect(){
 		 let effect=Decimal.log10(player.sb.boost.add(1)).div(100);
@@ -3226,20 +3237,20 @@ addLayer("h", {
                 currencyInternalName: "points",
                 rewardDescription: "Unlock Subspace. Gain 100% of Hindrance Spirit and Quirk gain per second. ",
             },
-			/*51: {
+			51: {
                 name: "A Reference to the Automatic Big Crunch",
                 completionLimit: 1,
-			    challengeDescription() {return "Each Dimension produces the Dimension 2 tiers before it. (Applied to layers P, B and G)"},
+			    challengeDescription() {return "Each Dimension produces the Dimension 2 tiers before it. (Applied to layers P and B)"},
                 unlocked() { return hasUpgrade("h",23) },
-                goal: function(){return new Decimal(Infinity);},
+                goal: function(){return new Decimal("1e4400000");},
                 currencyDisplayName: "points",
                 currencyInternalName: "points",
-                rewardDescription: "Unlock Magic and Balance. Autobuy Super-Booster Dimensions.",
-            },52: {
+                rewardDescription: "Unlock Magic and Balance. Autobuy Super-Booster Dimensions. 1st tier of Dimension is boosted based on 1st tier of Dimension gain per second. (Applied to layers P and B)",
+            },/*52: {
                 name: "Impossible?",
                 completionLimit: Infinity,
 			    challengeDescription() {return "You can't start this challenge."},
-                unlocked() { return hasUpgrade("h",31) },
+                unlocked() { return player.m.unlocked || player.ba.unlocked },
                 goal: function(){return new Decimal(Infinity);},
                 currencyDisplayName: "points",
                 currencyInternalName: "points",
@@ -3249,7 +3260,7 @@ addLayer("h", {
                 },
                 rewardDisplay() { return "Multiply all Time Dimensions by "+format(this.rewardEffect()) },
                 rewardDescription() { return "Time Dimensions are stronger based on challenge completions." },
-            },*/
+            }*/
 			
         },
 	 hotkeys: [
@@ -4019,7 +4030,7 @@ addLayer("o", {
     row: 3,
     hotkeys: [],
     layerShown(){return hasUpgrade("sb",23) || player.o.unlocked},
-	branches: ["sb"],
+	branches: ["sb","t"],
 		milestones: {
             0: {requirementDescription: "2 Solarity",
                 done() {return player[this.layer].best.gte(2)}, // Used to determine when to give the milestone

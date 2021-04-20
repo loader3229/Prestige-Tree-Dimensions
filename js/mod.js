@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5.2",
+	num: "0.5.3",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.5.3</h3><br>
+	- Finished the last Row 4 challenge<br>
+	- Balanced up to e8000000 points<br>
 	<h3>v0.5.2</h3><br>
 	- Finished the Solarity(O) layer<br>
 	- Balanced up to e7200000 points<br>
@@ -97,6 +100,7 @@ function getPointGen() {
 	if(hasUpgrade("q",11))gain = gain.mul(upgradeEffect("q",11))
 	gain = gain.mul(tmp.q.quirkEff)
 	if(hasUpgrade("sb",21))gain = gain.mul(upgradeEffect("sb",21))
+	if(player.h.activeChallenge==51||player.h.challenges[51])gain = gain.mul(tmp.p.buyables[12].effect.pow(0.05));
 	return gain
 }
 
@@ -116,7 +120,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(7200000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(8000000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -125,7 +129,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("1e7200000");
+	return player.points.gte("1e8000000");
 }
 
 
