@@ -565,11 +565,8 @@ addLayer("p", {
 				else layerDataReset("p",["upgrades"]);
 				return;
 			}
-			if(l=="h" || l=="q" || l=="ss" || l=="o"){
-				layerDataReset("p",["upgrades"]);
-				return;
-			}
-			layerDataReset("p",[]);
+			layerDataReset("p",["upgrades"]);
+			return;
 		},
 		
 		update(diff){
@@ -884,7 +881,9 @@ addLayer("b", {
 				else layerDataReset("b",[]);
 				return;
 			}
-			layerDataReset("b",[]);
+			var b=new Decimal(player.b.best);
+			layerDataReset("b",["upgrades"]);
+			player.b.best=b;
 		},
 		milestonePopups(){
 			if(player.h.best.gte(1))return false;
@@ -1419,7 +1418,9 @@ addLayer("g", {
 				else layerDataReset("g",[]);
 				return;
 			}
-			layerDataReset("g",[]);
+			var b=new Decimal(player.g.best);
+			layerDataReset("g",["upgrades"]);
+			player.g.best=b;
 		},
 		milestonePopups(){
 			if(player.h.best.gte(1))return false;
@@ -2024,7 +2025,9 @@ addLayer("t", {
 					player.t.best=b;
 					return;
 				}
-			layerDataReset("t",[]);
+			var b=new Decimal(player.t.best);
+			layerDataReset("t",["upgrades"]);
+			player.t.best=b;
 		},
 		milestonePopups(){
 			if(player.h.best.gte(1))return false;
@@ -2479,7 +2482,9 @@ addLayer("s", {
 					player.s.best=b;
 					return;
 				}
-			layerDataReset("s",[]);
+			var b=new Decimal(player.s.best);
+			layerDataReset("s",["upgrades"]);
+			player.s.best=b;
 		},
 		milestonePopups(){
 			if(player.h.best.gte(1))return false;
@@ -2756,7 +2761,9 @@ addLayer("e", {
 					player.e.best=b;
 					return;
 				}
-			layerDataReset("e",[]);
+			var b=new Decimal(player.e.best);
+			layerDataReset("e",["upgrades"]);
+			player.e.best=b;
 		},
 		
 		
@@ -2946,7 +2953,9 @@ addLayer("sb", {
 					if(hasUpgrade("h",12))player.sb.points=new Decimal(1);
 					return;
 				}
-			layerDataReset("sb",[]);
+			var b=new Decimal(player.sb.best);
+			layerDataReset("sb",["upgrades"]);
+			player.sb.best=b;
 		},
 		autoPrestige(){
 		 return player.h.best.gte(50);
@@ -3339,6 +3348,13 @@ addLayer("h", {
 		 if(player.h.challenges[42]>=1)return 1;
 		 return 0;
 	 },
+		doReset(l){
+			if(l=="h" || l=="q" || l=="ss" || l=="o")return;
+			var b=new Decimal(player.h.best);
+			
+			layerDataReset("h",["upgrades","challenges"]);
+			player.h.best=b;
+		},
 })
 
 
@@ -3520,6 +3536,12 @@ addLayer("q", {
 		 if(player.h.challenges[42]>=1)return 1;
 		 return 0;
 	 },
+		doReset(l){
+			if(l=="h" || l=="q" || l=="ss" || l=="o")return;
+			var b=new Decimal(player.q.best);
+			layerDataReset("q",["upgrades"]);
+			player.q.best=b;
+		},
 })
 
 
@@ -3616,7 +3638,9 @@ addLayer("sg", {
 					player.sg.best=b;
 				return;
 			}
-			layerDataReset("sg",[]);
+			var b=new Decimal(player.sg.best);
+			layerDataReset("sg",["upgrades"]);
+			player.sg.best=b;
 		},
 	 tabFormat: ["main-display",
                     "prestige-button", "resource-display",
@@ -3809,8 +3833,26 @@ addLayer("ss", {
 	 update(diff){
 		 player.ss.subspace=player.ss.subspace.add(tmp.ss.buyables[11].effect.mul(diff));
 		 if(hasUpgrade("ss",22))player.ss.dim1=player.ss.dim1.add(tmp.ss.buyables[12].effect.mul(diff));
+		 if(player.ba.unlocked){
+			target=player.s.dim.add(1).log(1e4).pow(1/1.35).add(1).floor();
+			if(target.gt(player.ss.buyables[11])){
+				player.ss.dim1=player.ss.dim1.add(target.sub(player.ss.buyables[11]));
+				player.ss.buyables[11]=target;
+			}
+			if(hasUpgrade("ss",22)){
+				target=player.s.dim.add(1).log(1e20).pow(1/1.35).add(1).floor();
+				if(target.gt(player.ss.buyables[12])){
+					player.ss.dim2=player.ss.dim2.add(target.sub(player.ss.buyables[12]));
+					player.ss.buyables[12]=target;
+				}
+			}
+		}
 	 },
 		doReset(l){
+			if(l=="h" || l=="q" || l=="ss" || l=="o")return;
+			var b=new Decimal(player.ss.best);
+			layerDataReset("ss",["upgrades"]);
+			player.ss.best=b;
 		},
 		milestones: {
             0: {requirementDescription: "1 Subspace Energy",
@@ -4042,14 +4084,25 @@ addLayer("o", {
             },
 		},
 	 hotkeys: [
-           {key: "O", description: "O: Solarity reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+           {key: "o", description: "O: Solarity reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
      ],
 	 update(diff){
 		 player.o.energy=player.o.energy.add(tmp.o.buyables[11].effect.mul(diff));
 		if(hasUpgrade("o",22))player.o.buyables[1]=player.o.buyables[1].add(tmp.o.buyables[1].gain.mul(diff));
 		if(hasUpgrade("o",22))player.o.buyables[2]=player.o.buyables[2].add(tmp.o.buyables[2].gain.mul(diff));
+		if(player.m.unlocked){
+			target=player.o.points.add(1).log(2).pow(1/1.35).add(1).floor();
+			if(target.gt(player.o.buyables[11])){
+				player.o.dim1=player.o.dim1.add(target.sub(player.o.buyables[11]));
+				player.o.buyables[11]=target;
+			}
+		}
 	 },
 		doReset(l){
+			if(l=="h" || l=="q" || l=="ss" || l=="o")return;
+			var b=new Decimal(player.o.best);
+			layerDataReset("o",["upgrades"]);
+			player.o.best=b;
 		},
 	 tabFormat: ["main-display",
                     "prestige-button", "resource-display",
@@ -4216,4 +4269,147 @@ addLayer("o", {
 		 if(player.o.best.gte(1e20))return 1;
 		 return 0;
 	 },
+})
+
+
+addLayer("m", {
+    name: "magic",
+    symbol: "M",
+    position: 0,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+		hexes: new Decimal(0),
+		dim1: new Decimal(0),
+		dim2: new Decimal(0),
+		dim3: new Decimal(0),
+		dim4: new Decimal(0),
+		dim5: new Decimal(0),
+		dim6: new Decimal(0),
+		dim7: new Decimal(0),
+		dim8: new Decimal(0),
+			spellTimes: {
+				1: new Decimal(0),
+				2: new Decimal(0),
+				3: new Decimal(0),
+				4: new Decimal(0),
+				5: new Decimal(0),
+				6: new Decimal(0),
+			},
+			spellInputs: {
+				1: new Decimal(1),
+				2: new Decimal(1),
+				3: new Decimal(1),
+				4: new Decimal(1),
+				5: new Decimal(1),
+				6: new Decimal(1),
+			},
+    }},
+        color: "#eb34c0",
+    requires: new Decimal("1e2375"),
+    resource: "magic",
+    baseResource: "hindrance spirit", 
+    baseAmount() {return player.h.points},
+    type: "normal",
+	getResetGain() {
+		var p=player.h.points.add(1).log10();
+		if(p.lte(2375))return new Decimal(0);
+		p=p.sub(2375).div(200).pow(0.6);
+		p=Decimal.pow(10,p);
+		p=p.mul(layers.m.gainMult());
+		return p.floor();
+	},
+	getNextAt() {
+		var p=player.h.points.add(1).log10();
+		if(p.lte(2375))return new Decimal("1e2375");
+		p=p.sub(2375).div(200).pow(0.6);
+		p=Decimal.pow(10,p);
+		p=p.mul(layers.m.gainMult());
+		p=p.floor().add(1).div(layers.m.gainMult()).log10().pow(1/0.6).mul(200).add(2375);
+		p=Decimal.pow(10,p);
+		return p;
+	},
+    gainMult() {
+        mult = new Decimal(1)
+		return mult
+    },
+    row: 4,
+    hotkeys: [],
+    layerShown(){return player.h.challenges[51] || player.m.unlocked},
+	branches: ["o","h","q"],
+		milestones: {
+            0: {requirementDescription: "1 Magic",
+                done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
+                effectDescription: "Keep all previous layer upgrades/milestones/challenge completions on reset, Autobuy solar dimensions.",
+            }
+		},
+	 hotkeys: [
+           {key: "m", description: "M: Magic reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
+		doReset(l){
+		},
+})
+
+
+addLayer("ba", {
+    name: "balance",
+    symbol: "BA",
+    position: 1,
+    startData() { return {
+        unlocked: false,
+		points: new Decimal(0),
+		pos: new Decimal(0),
+		pdim1: new Decimal(0),
+		pdim2: new Decimal(0),
+		pdim3: new Decimal(0),
+		pdim4: new Decimal(0),
+		neg: new Decimal(0),
+		ndim1: new Decimal(0),
+		ndim2: new Decimal(0),
+		ndim3: new Decimal(0),
+		ndim4: new Decimal(0),
+    }},
+        color: "#fced9f",
+    requires: new Decimal("1e1440"),
+    resource: "balance energy",
+    baseResource: "quirks", 
+    baseAmount() {return player.q.points},
+    type: "normal",
+	getResetGain() {
+		var p=player.q.points.add(1).log10();
+		if(p.lte(1440))return new Decimal(0);
+		p=p.sub(1440).div(200).pow(0.6);
+		p=Decimal.pow(10,p);
+		p=p.mul(layers.ba.gainMult());
+		return p.floor();
+	},
+	getNextAt() {
+		var p=player.q.points.add(1).log10();
+		if(p.lte(1440))return new Decimal("1e1440");
+		p=p.sub(1440).div(200).pow(0.6);
+		p=Decimal.pow(10,p);
+		p=p.mul(layers.ba.gainMult());
+		p=p.floor().add(1).div(layers.ba.gainMult()).log10().pow(1/0.6).mul(200).add(1440);
+		p=Decimal.pow(10,p);
+		return p;
+	},
+    gainMult() {
+        mult = new Decimal(1)
+		return mult
+    },
+    row: 4,
+    hotkeys: [],
+    layerShown(){return player.h.challenges[51] || player.ba.unlocked},
+	branches: ["q","ss"],
+		milestones: {
+            0: {requirementDescription: "1 Balance Energy",
+                done() {return player[this.layer].best.gte(1)}, // Used to determine when to give the milestone
+                effectDescription: "Keep all previous layer upgrades/milestones/challenge completions on reset, Autobuy quirk layers and subspace dimensions.",
+            }
+		},
+	 hotkeys: [
+           {key: "a", description: "A: Balance reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+     ],
+		doReset(l){
+		},
 })
