@@ -1,11 +1,12 @@
 var player;
 var needCanvasUpdate = true;
 var gameEnded = false;
+var scrolled = false;
 
 // Don't change this
 const TMT_VERSION = {
-	tmtNum: "2.3.3.1",
-	tmtName: "Cooler and Newer Edition"
+	tmtNum: "2.π",
+	tmtName: "Incrementally Updated"
 }
 
 function getResetGain(layer, useType = null) {
@@ -87,11 +88,23 @@ function shouldNotify(layer){
 	if (player[layer].activeChallenge && canCompleteChallenge(layer, player[layer].activeChallenge)) {
 		return true
 	}
-	if (tmp[layer].shouldNotify){
-		return tmp[layer].shouldNotify
+
+	if (isPlainObject(tmp[layer].tabFormat)) {
+		for (subtab in tmp[layer].tabFormat){
+			if (subtabShouldNotify(layer, 'mainTabs', subtab))
+				return true
+		}
 	}
-	else 
-		return false
+
+	for (family in tmp[layer].microtabs) {
+		for (subtab in tmp[layer].microtabs[family]){
+			if (subtabShouldNotify(layer, family, subtab))
+				return true
+		}
+	}
+	 
+	return tmp[layer].shouldNotify
+	
 }
 
 function canReset(layer)
@@ -125,15 +138,19 @@ function layerDataReset(layer, keep = []) {
 		if (player[layer][keep[thing]] !== undefined)
 			storedData[keep[thing]] = player[layer][keep[thing]]
 	}
+	Vue.set(player[layer], "buyables", getStartBuyables(layer))
+	Vue.set(player[layer], "clickables", getStartClickables(layer))
+	Vue.set(player[layer], "challenges", getStartChallenges(layer))
 
 	layOver(player[layer], getStartLayerData(layer))
 	player[layer].upgrades = []
 	player[layer].milestones = []
+	player[layer].achievements = []
 	player[layer].challenges = getStartChallenges(layer)
 	resetBuyables(layer)
+
 	if (layers[layer].clickables && !player[layer].clickables) 
 		player[layer].clickables = getStartClickables(layer)
-
 	for (thing in storedData) {
 		player[layer][thing] =storedData[thing]
 	}
@@ -207,6 +224,8 @@ function doReset(layer, force=false) {
 	rowReset("side", layer)
 	prevOnReset = undefined
 
+	player[layer].resetTime = 0
+
 	updateTemp()
 	updateTemp()
 }
@@ -270,13 +289,16 @@ function canCompleteChallenge(layer, x)
 function completeChallenge(layer, x) {
 	var x = player[layer].activeChallenge
 	if (!x) return
-	if (! canCompleteChallenge(layer, x)){
+	
+	let completions = canCompleteChallenge(layer, x)
+	if (!completions){
 		 player[layer].activeChallenge = null
 		return
 	}
 	if (player[layer].challenges[x] < tmp[layer].challenges[x].completionLimit) {
 		needCanvasUpdate = true
-		player[layer].challenges[x] += 1
+		player[layer].challenges[x] += completions
+		player[layer].challenges[x] = Math.min(player[layer].challenges[x], tmp[layer].challenges[x].completionLimit)
 		if (layers[layer].challenges[x].onComplete) run(layers[layer].challenges[x].onComplete, layers[layer].challenges[x])
 	}
 	player[layer].activeChallenge = null
@@ -316,6 +338,7 @@ function gameLoop(diff) {
 	for (x = 0; x <= maxRow; x++){
 		for (item in TREE_LAYERS[x]) {
 			let layer = TREE_LAYERS[x][item]
+			player[layer].resetTime += diff
 			if (tmp[layer].passiveGeneration) generatePoints(layer, diff*tmp[layer].passiveGeneration);
 			if (layers[layer].update) layers[layer].update(diff);
 		}
@@ -324,6 +347,7 @@ function gameLoop(diff) {
 	for (row in OTHER_LAYERS){
 		for (item in OTHER_LAYERS[row]) {
 			let layer = OTHER_LAYERS[row][item]
+			player[layer].resetTime += diff
 			if (tmp[layer].passiveGeneration) generatePoints(layer, diff*tmp[layer].passiveGeneration);
 			if (layers[layer].update) layers[layer].update(diff);
 		}
@@ -343,6 +367,7 @@ function gameLoop(diff) {
 			let layer = OTHER_LAYERS[row][item]
 			if (tmp[layer].autoPrestige && tmp[layer].canReset) doReset(layer);
 			if (layers[layer].automate) layers[layer].automate();
+			player[layer].best = player[layer].best.max(player[layer].points)
 			if (layers[layer].autoUpgrade) autobuyUpgrades(layer)
 		}
 	}
@@ -384,10 +409,11 @@ var interval = setInterval(function() {
 	if (needCanvasUpdate){ resizeCanvas();
 		needCanvasUpdate = false;
 	}
+	tmp.scrolled = document.getElementById('treeTab').scrollTop > 30
 	updateTemp();
 	gameLoop(diff)
 	fixNaNs()
-	adjustPopupTime(diff) 
+	adjustPopupTime(0.05) 
 	ticking = false
 }, 50)
 

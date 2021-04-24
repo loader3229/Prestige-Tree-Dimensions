@@ -1,5 +1,6 @@
 var tmp = {}
 var temp = tmp // Proxy for tmp
+var funcs = {}
 var NaNalert = false;
 
 // Tmp will not call these
@@ -21,8 +22,10 @@ function setupTemp() {
 	tmp = {}
 	tmp.pointGen = {}
 	tmp.displayThings = []
-
-	setupTempData(layers, tmp)
+	tmp.scrolled = 0
+	funcs = {}
+	
+	setupTempData(layers, tmp, funcs)
 	for (layer in layers){
 		tmp[layer].resetGain = {}
 		tmp[layer].nextAt = {}
@@ -31,12 +34,13 @@ function setupTemp() {
 		tmp[layer].notify = {}
 		tmp[layer].prestigeNotify = {}
 		tmp[layer].prestigeButtonText = {}
+		tmp[layer].computedNodeStyle = []
 		setupBarStyles(layer)
 	}
 	temp = tmp
 }
 
-function setupTempData(layerData, tmpData) {
+function setupTempData(layerData, tmpData, funcsData) {
 	for (item in layerData){
 		if (layerData[item] == null) {
 			tmpData[item] = null
@@ -45,16 +49,20 @@ function setupTempData(layerData, tmpData) {
 			tmpData[item] = layerData[item]
 		else if (Array.isArray(layerData[item])) {
 			tmpData[item] = []
-			setupTempData(layerData[item], tmpData[item])
+			funcsData[item] = []
+			setupTempData(layerData[item], tmpData[item], funcsData[item])
 		}
 		else if ((!!layerData[item]) && (layerData[item].constructor === Object)) {
 			tmpData[item] = {}
-			setupTempData(layerData[item], tmpData[item])
+			funcsData[item] = []
+			setupTempData(layerData[item], tmpData[item], funcsData[item])
 		}
 		else if ((!!layerData[item]) && (typeof layerData[item] === "object") && traversableClasses.includes(layerData[item].constructor.name)) {
 			tmpData[item] = new layerData[item].constructor()
+			funcsData[item] = new layerData[item].constructor()
 		}
 		else if (isFunction(layerData[item]) && !activeFunctions.includes(item)){
+			funcsData[item] = layerData[item]
 			tmpData[item] = new Decimal(0) // The safest thing to put probably?
 		} else {
 			tmpData[item] = layerData[item]
@@ -66,7 +74,7 @@ function updateTemp() {
 	if (tmp === undefined)
 		setupTemp()
 
-	updateTempData(layers, tmp)
+	updateTempData(layers, tmp, funcs)
 
 	for (layer in layers){
 		tmp[layer].resetGain = getResetGain(layer)
@@ -78,6 +86,7 @@ function updateTemp() {
 		tmp[layer].prestigeButtonText = prestigeButtonText(layer)
 		constructBarStyles(layer)
 		constructAchievementStyles(layer)
+		constructNodeStyle(layer)
 		updateChallengeDisplay(layer)
 
 	}
@@ -92,16 +101,16 @@ function updateTemp() {
 
 }
 
-function updateTempData(layerData, tmpData) {
+function updateTempData(layerData, tmpData, funcsData) {
 	
-	for (item in layerData){
+	for (item in funcsData){
 		if (Array.isArray(layerData[item])) {
-			updateTempData(layerData[item], tmpData[item])
+			updateTempData(layerData[item], tmpData[item], funcsData[item])
 		}
 		else if ((!!layerData[item]) && (layerData[item].constructor === Object) || (typeof layerData[item] === "object") && traversableClasses.includes(layerData[item].constructor.name)){
-			updateTempData(layerData[item], tmpData[item])
+			updateTempData(layerData[item], tmpData[item], funcsData[item])
 		}
-		else if (isFunction(layerData[item]) && !activeFunctions.includes(item)){
+		else if (isFunction(layerData[item]) && !isFunction(tmpData[item])){
 			let value = layerData[item]()
 			if (value !== value || value === decimalNaN){
 				if (NaNalert === true || confirm ("Invalid value found in tmp, named '" + item + "'. Please let the creator of this mod know! Would you like to try to auto-fix the save and keep going?")){
@@ -123,7 +132,7 @@ function updateTempData(layerData, tmpData) {
 
 function updateChallengeTemp(layer)
 {
-	updateTempData(layers[layer].challenges, tmp[layer].challenges)
+	updateTempData(layers[layer].challenges, tmp[layer].challenges, funcs[layer].challenges)
 	updateChallengeDisplay(layer)
 }
 
@@ -141,13 +150,26 @@ function updateChallengeDisplay(layer) {
 
 function updateBuyableTemp(layer)
 {
-	updateTempData(layers[layer].buyables, tmp[layer].buyables)
+	updateTempData(layers[layer].buyables, tmp[layer].buyables, funcs[layer].buyables)
 }
 
 function updateClickableTemp(layer)
 {
-	updateTempData(layers[layer].clickables, tmp[layer].clickables)
+	updateTempData(layers[layer].clickables, tmp[layer].clickables, funcs[layer].clickables)
 }
+
+function constructNodeStyle(layer){
+	let style = []
+	if ((tmp[layer].isLayer && layerunlocked(layer)) || (!tmp[layer].isLayer && tmp[layer].canClick))
+		style.push({'background-color': tmp[layer].color})
+	if (tmp[layer].image !== undefined)
+		style.push({'background-image': 'url("' + tmp[layer].image + '")'})
+	style.push(tmp[layer].nodeStyle)
+	Vue.set(tmp[layer], 'computedNodeStyle', style)
+}
+
+
+
 
 function constructAchievementStyles(layer){
 	for (id in tmp[layer].achievements) {
