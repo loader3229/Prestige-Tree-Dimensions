@@ -3523,7 +3523,7 @@ addLayer("h", {
                     return "You have "+format(player.h.buyables[51])+" Hindrance Evolutions.<br>"+
 					"Cost for Next Hindrance Evolution: "+format(player.h.challenges[52])+"/"+format(data.cost)+" 'Impossible?' completions";
                 },
-                unlocked() { return hasUpgrade("h",32) }, 
+                unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return new Decimal(player[this.layer].challenges[52]).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
@@ -3542,7 +3542,7 @@ addLayer("h", {
                         function() {if(hasUpgrade("h",32))return 'You have ' + format(player.h.power) + ' Hindrance Power, reach ' + format(tmp.h.realC52Goal) + ' to complete \'Impossible?\' '+(player.h.challenges[52]?"one more time":"");},
                         {}],
 						["display-text",
-                        "Hindrance Evolution will reset 'Impossible?' completions, increase the real goal of 'Impossible?', but it will boost the reward of 'Impossible?' and reduce the goal of repeatable challenges except 'Impossible?'.\nHindrance Evolution will be kept on all resets.",
+                        function() {if(player.m.unlocked || player.ba.unlocked)return "Hindrance Evolution will reset 'Impossible?' completions, increase the real goal of 'Impossible?', but it will boost the reward of 'Impossible?' and reduce the goal of repeatable challenges except 'Impossible?'.\nHindrance Evolution will be kept on all resets.";return ""},
                         {}],
 						"buyables",
 						"milestones",
