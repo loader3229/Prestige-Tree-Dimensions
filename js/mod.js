@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5.3",
+	num: "0.5.4",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.5.4</h3><br>
+	- Added the 2 Row 5 Layers(M,BA) (unfinished)<br>
+	- Upgraded TMT to 2.π<br>
 	<h3>v0.5.3</h3><br>
 	- Finished the last Row 4 challenge<br>
 	- Balanced up to e8000000 points<br>
