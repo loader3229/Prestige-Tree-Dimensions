@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.5.4",
+	num: "0.6",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.6</h3><br>
+	- Added some features of layers M and BA<br>
+	- Balanced up to e26000000 points<br>
 	<h3>v0.5.4</h3><br>
 	- Added the 2 Row 5 Layers(M,BA) (unfinished)<br>
 	- Upgraded TMT to 2.π<br>
@@ -123,7 +126,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(8000000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(26000000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -132,7 +135,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("1e8000000");
+	return player.points.gte("e26000000");
 }
 
 
