@@ -4627,7 +4627,7 @@ addLayer("o", {
                     "They are producing "+format(data.effect)+" 1st Solar Dimensions per second.<br>"+
 					"Cost for Next 2nd Solar Dimension: "+format(data.cost)+" Solarity";
                 },
-                unlocked() { return player[this.layer].unlocked }, 
+                unlocked() { return hasUpgrade("o",33) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
