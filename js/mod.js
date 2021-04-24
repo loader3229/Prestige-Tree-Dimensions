@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6",
+	num: "0.6.1",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,8 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.6.1</h3><br>
+	- Fixed a bug when importing v0.5.4 savefile<br>
 	<h3>v0.6</h3><br>
 	- Added some features of layers M and BA<br>
 	- Balanced up to e26000000 points<br>
@@ -156,4 +158,12 @@ function fixOldSave(oldVersion){
 		save();
 		window.location.reload();
 	}
+	if(oldVersion=="0.6" || oldVersion=="0.5.4")player.m.spellTimes={
+				11: "0",
+				12: "0",
+				21: "0",
+				22: "0",
+				31: "0",
+				32: "0",
+			};
 }
