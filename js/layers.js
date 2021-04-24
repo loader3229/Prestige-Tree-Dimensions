@@ -3513,6 +3513,12 @@ addLayer("q", {
 		update(diff){
 			if(hasUpgrade("q",12))player.q.energy=player.q.energy.add(tmp.q.buyables[11].effect.mul(diff)).max(0);
 			if(hasUpgrade("q",21))player.q.time1+=diff;
+			if(player.ba.unlocked){
+				target=player.q.points.add(1).log(2).pow(1/1.5).add(1).floor();
+				if(target.gt(player.q.buyables[11])){
+					player.q.buyables[11]=target;
+				}
+			}
 		},
 		
 	tabFormat: ["main-display",
