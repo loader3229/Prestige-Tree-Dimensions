@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.6.1",
+	num: "0.7",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.7</h3><br>
+	- Added Enhance Dimensions, nerfed some Enhancer effects<br>
+	- Endgame: e51000000 points, 1e13 Magic/Balance Energy<br>
 	<h3>v0.6.1</h3><br>
 	- Fixed a bug when importing v0.5.4 savefile<br>
 	<h3>v0.6</h3><br>
@@ -128,16 +131,17 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(26000000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(51000000)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
+	"Mod Author: qq1010903229 (loader3229)",
 	function(){return "Game Percentage: "+format(gamePercentage())+"%";}
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("e26000000");
+	return player.points.gte("e51000000");
 }
 
 
@@ -152,18 +156,10 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
-	if(oldVersion.startsWith("0.3") || oldVersion.startsWith("0.2") || oldVersion.startsWith("0.1")){
-		alert("Sorry. Your game is completely reset because of balancing.");
+	if(oldVersion.startsWith("0.6") || oldVersion.startsWith("0.5") || oldVersion.startsWith("0.4") || oldVersion.startsWith("0.3") || oldVersion.startsWith("0.2") || oldVersion.startsWith("0.1")){
+		alert("Sorry. Your game is completely reset because of the addition of Enhance Dimensions.");
 		player = null
 		save();
 		window.location.reload();
 	}
-	if(oldVersion=="0.6" || oldVersion=="0.5.4")player.m.spellTimes={
-				11: "0",
-				12: "0",
-				21: "0",
-				22: "0",
-				31: "0",
-				32: "0",
-			};
 }

@@ -25,7 +25,7 @@ function getResetGain(layer, useType = null) {
 		return gain.floor().sub(player[layer].points).add(1).max(1);
 	} else if (type=="normal"){
 		if (tmp[layer].baseAmount.lt(tmp[layer].requires)) return new Decimal(0)
-		let gain = tmp[layer].baseAmount.div(tmp[layer].requires).pow(tmp[layer].exponent).times(tmp[layer].gainMult).pow(tmp[layer].gainExp)
+		let gain = Decimal.pow(10,tmp[layer].baseAmount.div(tmp[layer].requires).pow(tmp[layer].exponent).log10().pow(tmp[layer].logExponent)).times(tmp[layer].gainMult).pow(tmp[layer].gainExp)
 		if (gain.gte(tmp[layer].softcap)) gain = gain.pow(tmp[layer].softcapPower).times(tmp[layer].softcap.pow(decimalOne.sub(tmp[layer].softcapPower)))
 		return gain.floor().max(0);
 	} else if (type=="custom"){
@@ -60,7 +60,7 @@ function getNextAt(layer, canMax=false, useType = null) {
 	} else if (type=="normal"){
 		let next = tmp[layer].resetGain.add(1)
 		if (next.gte(tmp[layer].softcap)) next = next.div(tmp[layer].softcap.pow(decimalOne.sub(tmp[layer].softcapPower))).pow(decimalOne.div(tmp[layer].softcapPower))
-		next = next.root(tmp[layer].gainExp).div(tmp[layer].gainMult).root(tmp[layer].exponent).times(tmp[layer].requires).max(tmp[layer].requires)
+		next = Decimal.pow(10,next.root(tmp[layer].gainExp).div(tmp[layer].gainMult).log10().root(tmp[layer].logExponent)).root(tmp[layer].exponent).times(tmp[layer].requires).max(tmp[layer].requires)
 		if (tmp[layer].roundUpCost) next = next.ceil()
 		return next;
 	} else if (type=="custom"){
