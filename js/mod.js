@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7.0.1",
+	num: "0.7.1",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.7.1</h3><br>
+	- Added 2 new challenges<br>
+	- Endgame: e365000000 points, 1e43 Magic, 1e56 Balance Energy<br>
 	<h3>v0.7</h3><br>
 	- Added Enhance Dimensions, nerfed some Enhancer effects<br>
 	- Endgame: e51000000 points, 1e13 Magic/Balance Energy<br>
@@ -131,7 +134,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(51000000)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(365e6)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -141,7 +144,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("e51000000");
+	return player.points.gte("e365e6");
 }
 
 
