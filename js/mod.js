@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7.1",
+	num: "0.8",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,10 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v0.8</h3><br>
+	- Implemented the Phantom Soul(PS) layer<br>
+	- Added a new challenge<br>
+	- Endgame: e3e9 points, 23/24 Phantom Souls<br>
 	<h3>v0.7.1</h3><br>
 	- Added 2 new challenges<br>
 	- Endgame: e365000000 points, 1e43 Magic, 1e56 Balance Energy<br>
@@ -114,7 +118,7 @@ function getPointGen() {
 	if(hasUpgrade("q",11))gain = gain.mul(upgradeEffect("q",11))
 	gain = gain.mul(tmp.q.quirkEff)
 	if(hasUpgrade("sb",21))gain = gain.mul(upgradeEffect("sb",21))
-	if(player.h.activeChallenge==51||player.h.challenges[51])gain = gain.mul(tmp.p.buyables[12].effect.pow(0.05));
+	if(player.h.activeChallenge==51||player.h.challenges[51])gain = gain.mul(tmp.p.buyables[12].effect.pow(0.05).add(1));
 	return gain
 }
 
@@ -134,7 +138,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(365e6)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(3e9)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -144,7 +148,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("e365e6");
+	return player.points.gte("e3e9");
 }
 
 
