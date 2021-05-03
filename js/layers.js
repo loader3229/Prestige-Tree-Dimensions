@@ -1400,7 +1400,7 @@ addLayer("g", {
 			42: {
 				title: "Generator Upgrade 42",
 				description: "All Generator Dimensions is boosted by Generator Power.",
-				cost: new Decimal(25500),
+				cost: new Decimal(25250),
 				unlocked() { return player.h.challenges[21]>=2 },
 				effect() { return Decimal.pow(1.2,Decimal.log10(player.g.power.add(1)).pow(0.9)) },
 				effectDisplay() { return format(this.effect())+"x" },
@@ -3521,7 +3521,7 @@ addLayer("h", {
                 completionLimit: 4,
 			    challengeDescription() {return "1st Generator Dimension does nothing.<br>"+challengeCompletions(this.layer, this.id) +"/4 completions"},
                 unlocked() { return player[this.layer].best.gt(1e6) },
-                goal: function(){return [new Decimal("1e12750"),new Decimal("1e99000"),new Decimal("1e262000"),new Decimal("1e1530000"),new Decimal(Infinity)][player.h.challenges[21]];},
+                goal: function(){return [new Decimal("1e12750"),new Decimal("1e98000"),new Decimal("1e262000"),new Decimal("1e1530000"),new Decimal(Infinity)][player.h.challenges[21]];},
                 currencyDisplayName: "points",
                 currencyInternalName: "points",
                 rewardEffect() {

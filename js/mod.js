@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.7",
+	num: "0.7.0.1",
 	name: "Same tree with different mechanics",
 }
 
