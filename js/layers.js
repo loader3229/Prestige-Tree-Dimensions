@@ -6057,7 +6057,7 @@ addLayer("ps", {
                 effectDescription: "Unlock Phantom Soul Upgrades.",
             },
 			3: {requirementDescription: "6 Phantom Souls",
-                done() {return player[this.layer].best.gte(4)}, // Used to determine when to give the milestone
+                done() {return player[this.layer].best.gte(6)}, // Used to determine when to give the milestone
                 effectDescription: "You can buy max Phantom Souls.",
             }
 		},
