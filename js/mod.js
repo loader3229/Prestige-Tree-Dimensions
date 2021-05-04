@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.8",
+	num: "1.0",
 	name: "Same tree with different mechanics",
 }
 
@@ -20,6 +20,9 @@ let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0</h3><br>
+	- Implemented the Super-Prestige(SP) layer<br>
+	- Endgame: e7.36e10 points, 1e20 Super-Prestige Points<br>
 	<h3>v0.8</h3><br>
 	- Implemented the Phantom Soul(PS) layer<br>
 	- Added a new challenge<br>
@@ -138,7 +141,7 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(3e9)*10000)/100;
+	return Math.floor(Math.log(p)/Math.log(7.36e10)*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
@@ -148,7 +151,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("e3e9");
+	return player.points.gte("e7.36e10");
 }
 
 
