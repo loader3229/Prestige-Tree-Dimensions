@@ -1895,7 +1895,7 @@ addLayer("g", {
                 style: {'height':'222px'},
             },
             41: {
-                title: "6th Generator Dimension", // Optional, displayed at the top in a larger font
+                title: "7th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
                     if(player.h.challenges[21]<6)return Infinity;
                     let cost = Decimal.pow("1e31250", x.pow(1.35));
