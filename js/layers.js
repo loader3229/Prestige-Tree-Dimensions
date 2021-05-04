@@ -937,13 +937,13 @@ addLayer("b", {
 				title: "Booster Upgrade 53",
 				description: "Each bought Booster Galaxy add 2 free Prestige Galaxies.",
 				cost: new Decimal(165e6),
-				unlocked() { return hasUpgrade("o",32) },
+				unlocked() { return hasUpgrade("o",42) },
 			},
 			54: {
 				title: "Booster Upgrade 54",
 				description: "Booster Upgrade 33 is squared.",
 				cost: new Decimal(555555555),
-				unlocked() { return hasUpgrade("o",32) },
+				unlocked() { return hasUpgrade("o",42) },
 			},
 		},
 		milestones: {
@@ -3025,7 +3025,7 @@ addLayer("s", {
 			title: "Space Upgrade 14",
             description: "Space Buildings are stronger based on Space Energy.",
 			cost: new Decimal(69000),
-			unlocked() { return hasUpgrade("ss",32) },
+			unlocked() { return hasUpgrade("ss",42) },
 			effect() { 
 				let ret=player.s.points.add(1).log10().div(10).add(1).pow(0.1);
 				if(hasUpgrade("s",24))ret=ret.pow(2);
@@ -3039,19 +3039,19 @@ addLayer("s", {
 			title: "Space Upgrade 24",
             description: "Space Upgrade 14's effect ^2.",
 			cost: new Decimal(100000),
-			unlocked() { return hasUpgrade("ss",32) },
+			unlocked() { return hasUpgrade("ss",42) },
 		},
 		34: {
 			title: "Space Upgrade 34",
             description: "Space Upgrade 14's effect ^(1+1/7).",
 			cost: new Decimal(142857),
-			unlocked() { return hasUpgrade("ss",32) },
+			unlocked() { return hasUpgrade("ss",42) },
 		},
 		44: {
 			title: "Space Upgrade 44",
             description: "Space Upgrade 14's effect ^(1+1/6).",
 			cost: new Decimal(166666),
-			unlocked() { return hasUpgrade("ss",32) },
+			unlocked() { return hasUpgrade("ss",42) },
 		},
 	},
 		doReset(l){
@@ -6875,7 +6875,7 @@ addLayer("sp", {
     },
     row: 5,
     hotkeys: [],
-    layerShown(){return player.h.challenges[71]>=1 || player.ps.unlocked},
+    layerShown(){return player.h.challenges[71]>=1 || player.sp.unlocked},
 	branches: ["m","ba","p"],
 		milestones: {
             0: {requirementDescription: "1 Super-Prestige Points",
