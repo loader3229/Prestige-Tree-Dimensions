@@ -4872,7 +4872,7 @@ addLayer("q", {
                     return ret;
                 },
                 effectDisplay() { return format(this.effect())+"x" }, // Add formatting to the effect
-                unlocked() { return true },
+                unlocked() { return hasUpgrade("ba",32) },
             },
 		},
 		
@@ -5461,13 +5461,13 @@ addLayer("ss", {
 				title: "Subspace Upgrade 31",
                 description: "Subspace Upgrade 13 is squared.",
                 cost: new Decimal(19),
-                unlocked() { return player.ba.unlocked }, // The upgrade is only visible when this is true
+                unlocked() { return true }, // The upgrade is only visible when this is true
             },
 			32: {
 				title: "Subspace Upgrade 32",
                 description: "Subspace Energy's effect ^5",
                 cost: new Decimal(20),
-                unlocked() { return player.ba.unlocked }, // The upgrade is only visible when this is true
+                unlocked() { return true }, // The upgrade is only visible when this is true
             },
 			33: {
 				title: "Subspace Upgrade 33",
@@ -5479,19 +5479,19 @@ addLayer("ss", {
 				title: "Subspace Upgrade 41",
                 description: "Subspace Energy's effect is powered by your Subspace Energy",
                 cost: new Decimal(49),
-                unlocked() { return true }, // The upgrade is only visible when this is true
+                unlocked() { return hasUpgrade("ba",33) }, // The upgrade is only visible when this is true
             },
 			42: {
 				title: "Subspace Upgrade 42",
                 description: "Unlock 4 new Space Upgrades.",
                 cost: new Decimal(52),
-                unlocked() { return true }, // The upgrade is only visible when this is true
+                unlocked() { return hasUpgrade("ba",33) }, // The upgrade is only visible when this is true
             },
 			43: {
 				title: "Subspace Upgrade 43",
                 description: "Subspace boosts All Subspace Dimensions.",
                 cost: new Decimal(57),
-                unlocked() { return true }, // The upgrade is only visible when this is true
+                unlocked() { return hasUpgrade("ba",33) }, // The upgrade is only visible when this is true
 				effect() { // Calculate bonuses from the upgrade. Can return a single value or an object with multiple values
                     let base=1.5;
                     let ret = Decimal.pow(base,player.ss.subspace.add(1).log10().pow(0.9));
