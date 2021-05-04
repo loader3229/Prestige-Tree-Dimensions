@@ -169,6 +169,9 @@ var displayThings = [
 		return "Game Percentage: "+format(gamePercentage())+"%";
 	},
 	function(){
+		if(player.pointsTotal.gte("ee12") || player.points.neq(player.points)){
+			return "THIS GAME IS INFLATED! PLEASE HARD RESET!";
+		}
 		if(player.keepGoing){
 			return "This game will be inflated, if you keep playing";
 		}
