@@ -4091,6 +4091,10 @@ addLayer("h", {
                 done() {return player[this.layer].best.gte(1e192)}, // Used to determine when to give the milestone
                 effectDescription: "Unlock the eighth challenge, complete this challenge will unlock a new layer.",
             },
+			15: {requirementDescription: "1e240 Hindrance Spirit",
+                done() {return player[this.layer].best.gte(1e240)}, // Used to determine when to give the milestone
+                effectDescription: "You can complete a challenge without exiting it.",
+            },
 		},
 		milestonePopups(){
 		 return !(player.m.unlocked || player.ba.unlocked);
@@ -4105,7 +4109,7 @@ addLayer("h", {
 		    11: {
                 name: "Dimensional Hindrance 1",
                 completionLimit: 5,
-			    challengeDescription() {return "2nd Prestige Dimension does nothing.<br>"+challengeCompletions(this.layer, this.id) +"/5 completions"},
+			    challengeDescription() {return "2nd Prestige Dimension does nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/5 completions"},
                 unlocked() { return player[this.layer].best.gt(100) },
                 goal: function(){return [new Decimal("1e12345"),new Decimal("1e15100"),new Decimal("1e57000"),new Decimal("1e125000"),new Decimal("1e194000"),new Decimal(Infinity)][player.h.challenges[11]];},
                 currencyDisplayName: "points",
@@ -4120,7 +4124,7 @@ addLayer("h", {
 			12: {
                 name: "Dimensional Hindrance 2",
                 completionLimit: 7,
-			    challengeDescription() {return "1st Booster Dimension does nothing.<br>"+challengeCompletions(this.layer, this.id) +"/7 completions"},
+			    challengeDescription() {return "1st Booster Dimension does nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/7 completions"},
                 unlocked() { return player[this.layer].best.gt(1000) },
                 goal: function(){return [new Decimal("1e13120"),new Decimal("1e16500"),new Decimal("1e750000"),new Decimal("1e1330000"),new Decimal("1e15000000"),new Decimal("e643e6"),new Decimal("e16e8"),new Decimal(Infinity)][player.h.challenges[12]];},
                 currencyDisplayName: "points",
@@ -4135,7 +4139,7 @@ addLayer("h", {
 			21: {
                 name: "Dimensional Hindrance 3",
                 completionLimit: 7,
-			    challengeDescription() {return "1st Generator Dimension does nothing.<br>"+challengeCompletions(this.layer, this.id) +"/7 completions"},
+			    challengeDescription() {return "1st Generator Dimension does nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/7 completions"},
                 unlocked() { return player[this.layer].best.gt(1e6) },
                 goal: function(){return [new Decimal("1e12750"),new Decimal("1e98000"),new Decimal("1e262000"),new Decimal("1e1530000"),new Decimal("1e16000000"),new Decimal("e29e7"),new Decimal("e713e6"),new Decimal(Infinity)][player.h.challenges[21]];},
                 currencyDisplayName: "points",
@@ -4150,7 +4154,7 @@ addLayer("h", {
 			22: {
                 name: "No Prestige",
                 completionLimit: 8,
-			    challengeDescription() {return "You can't gain any prestige points<br>"+challengeCompletions(this.layer, this.id) +"/8 completions"},
+			    challengeDescription() {return "You can't gain any prestige points (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/8 completions"},
                 unlocked() { return player[this.layer].best.gt(1e12) },
                 goal: function(){return [new Decimal("1e8500"),new Decimal("1e17400"),new Decimal("1e22400"),new Decimal("1e120000"),new Decimal("1e1100000"),new Decimal("1e1200000"),new Decimal("e13500000"),new Decimal("e475000000"),new Decimal(Infinity)][player.h.challenges[22]];},
                 currencyDisplayName: "points",
@@ -4165,7 +4169,7 @@ addLayer("h", {
 			31: {
                 name: "Skip the Second",
                 completionLimit: Infinity,
-			    challengeDescription() {return "Boosters and Generators do nothing<br>"+challengeCompletions(this.layer, this.id) +" completions"},
+			    challengeDescription() {return "Boosters and Generators do nothing (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +" completions"},
                 unlocked() { return player[this.layer].best.gt(1e24) },
                 goal: function(){return Decimal.pow(10,Decimal.pow(1.1,Decimal.sub(player.h.challenges[31],player.h.buyables[51])).mul(6050));},
                 currencyDisplayName: "points",
@@ -4180,7 +4184,7 @@ addLayer("h", {
 			32: {
                 name: "Dimensional Hindrance 4",
                 completionLimit: 4,
-			    challengeDescription() {return "1st Time Dimension and 1st Enhance Dimension do nothing.<br>"+challengeCompletions(this.layer, this.id) +"/4 completions"},
+			    challengeDescription() {return "1st Time Dimension and 1st Enhance Dimension do nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/4 completions"},
                 unlocked() { return player[this.layer].best.gt(1e48) },
                 goal: function(){return [new Decimal("1e94000"),new Decimal("1e270000"),new Decimal("1e2777777"),new Decimal("1e27300000"),new Decimal(Infinity)][player.h.challenges[32]];},
                 currencyDisplayName: "points",
@@ -4195,7 +4199,7 @@ addLayer("h", {
 			41: {
                 name: "No Generator Power",
                 completionLimit: Infinity,
-			    challengeDescription() {return "You can't gain any Generator Power, Hindrance Upgrade 11 is disabled.<br>"+challengeCompletions(this.layer, this.id) +" completions"},
+			    challengeDescription() {return "You can't gain any Generator Power, Hindrance Upgrade 11 is disabled. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +" completions"},
                 unlocked() { return player[this.layer].best.gt(1e96) },
                 goal: function(){return Decimal.pow(10,Decimal.pow(1.1,Decimal.sub(player.h.challenges[41],player.h.buyables[51])).mul(45000));},
                 currencyDisplayName: "points",
@@ -4233,7 +4237,7 @@ addLayer("h", {
 			52: {
                 name: "Impossible?",
                 completionLimit: Infinity,
-			    challengeDescription() {return "You can't start this challenge.<br>"+(challengeCompletions(this.layer, this.id) +" completions")},
+			    challengeDescription() {return "You can't start this challenge. (Repeatable)<br>"+(challengeCompletions(this.layer, this.id) +" completions")},
                 unlocked() { return player.m.unlocked || player.ba.unlocked },
                 goal: function(){return new Decimal(Infinity);},
                 currencyDisplayName: "points",
@@ -4248,7 +4252,7 @@ addLayer("h", {
 			61: {
                 name: "Dimensional Hindrance 5",
                 completionLimit: 2,
-			    challengeDescription() {return "1st Super-Booster Dimension and 1st Super-Generator Dimension do nothing.<br>"+challengeCompletions(this.layer, this.id) +"/2 completions"},
+			    challengeDescription() {return "1st Super-Booster Dimension and 1st Super-Generator Dimension do nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +"/2 completions"},
                 unlocked() { return hasUpgrade("h",33) },
                 goal: function(){return [new Decimal("e76400000"),new Decimal("e7.3e9"),new Decimal(Infinity)][player.h.challenges[61]];},
                 currencyDisplayName: "points",
@@ -4263,7 +4267,7 @@ addLayer("h", {
 			62: {
                 name: "Magical Hindrance",
                 completionLimit: Infinity,
-			    challengeDescription() {return "Normal Spells do nothing.<br>"+challengeCompletions(this.layer, this.id) +" completions"},
+			    challengeDescription() {return "Normal Spells do nothing. (Repeatable)<br>"+challengeCompletions(this.layer, this.id) +" completions"},
                 unlocked() { return hasUpgrade("h",33) },
                 goal: function(){return Decimal.pow(10,Decimal.pow(1.1,Decimal.sub(player.h.challenges[62],player.h.buyables[51])).mul(2865e5));},
                 currencyDisplayName: "points",
@@ -4459,6 +4463,13 @@ addLayer("h", {
 			if(hasUpgrade("h",34)){
 				if(player.points.gte(layers.h.challenges[62].goal())){
 					player.h.challenges[62]++;
+				}
+			}
+			if(player.h.best.gte(1e240)){
+				if(player.h.activeChallenge){
+					if(player.points.gte(layers.h.challenges[player.h.activeChallenge].goal()) && player.h.challenges[player.h.activeChallenge]<layers.h.challenges[player.h.activeChallenge].completionLimit){
+						player.h.challenges[player.h.activeChallenge]++;
+					}
 				}
 			}
 		},
