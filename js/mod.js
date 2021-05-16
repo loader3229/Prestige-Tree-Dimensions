@@ -23,6 +23,7 @@ let changelog = `
 	<h3>v1.0.1</h3><br>
 	- Added Infinity<br>
 	- Removed the Inflation Percentage<br>
+	- Endgame: 1 infinity<br>
 	<h3>v1.0.0.1</h3><br>
 	- Added the Inflation Percentage<br>
 	<h3>v1.0</h3><br>
