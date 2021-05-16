@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.0.3",
-	name: "Same tree with different mechanics",
+	num: "1.0.1",
+	name: "The Infinity Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.1</h3><br>
+	- Added Infinity<br>
+	- Removed the Inflation Percentage<br>
 	<h3>v1.0.0.1</h3><br>
 	- Added the Inflation Percentage<br>
 	<h3>v1.0</h3><br>
@@ -124,7 +127,7 @@ function getPointGen() {
 	gain = gain.mul(tmp.q.quirkEff)
 	if(hasUpgrade("sb",21))gain = gain.mul(upgradeEffect("sb",21))
 	if(player.h.activeChallenge==51||player.h.challenges[51])gain = gain.mul(tmp.p.buyables[12].effect.pow(0.05).add(1));
-	return gain
+	return layers.inf.dimInfinityEffect(gain,player.p.dim1);
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
@@ -132,7 +135,7 @@ function addedPlayerData() { return {
 	pointsTotal:new Decimal(0)
 }}
 
-function gamePercentage(p){
+function infinityPercentage(p){
 	if(p===undefined || p!=p)p=Decimal.log10(player.pointsTotal.add(10)).toNumber();/*
 	var milestone=[1,6,13,70 ,240,1600,19300,96000];
 	var power=    [1,1,1 ,0.8,0.9,0.7 ,0.8  ,0.8];
@@ -143,45 +146,20 @@ function gamePercentage(p){
 	}
 	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
 	*/
-	return Math.floor(Math.log(p)/Math.log(7.36e10)*10000)/100;
-}
-
-function inflationPercentage(p){
-	if(p===undefined || p!=p)p=Decimal.log10(player.pointsTotal.add(10)).toNumber();/*
-	var milestone=[1,6,13,70 ,240,1600,19300,96000];
-	var power=    [1,1,1 ,0.8,0.9,0.7 ,0.8  ,0.8];
-	var t=0;
-	while(milestone[t] && milestone[t]<=p)t++;
-	if(t==milestone.length){
-		t--;
-	}
-	return Math.floor((t+((p-milestone[t-1])/(milestone[t]-milestone[t-1]))**power[t]-1)/(milestone.length-1)*10000)/100;
-	*/
-	return Math.min(Math.floor((Math.log(p)-Math.log(7.36e10))/(Math.log(1e12)-Math.log(7.36e10))*10000)/100,100);
+	return Math.floor(Math.log(p)/Math.log(Decimal.log10(layers.inf.requires()).toNumber())*10000)/100;
 }
 // Display extra things at the top of the page
 var displayThings = [
 	"Mod Author: qq1010903229 (loader3229)",
 	function(){
-		if(player.keepGoing){
-			return "Inflation Percentage: "+format(inflationPercentage())+"% (You need patience)";
-		}
-		return "Game Percentage: "+format(gamePercentage())+"%";
+		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	function(){
-		if(player.pointsTotal.gte("ee12") || player.points.neq(player.points)){
-			return "THIS GAME IS INFLATED! PLEASE HARD RESET!";
-		}
-		if(player.keepGoing){
-			return "This game will be inflated, if you keep playing";
-		}
-		return "";
-	}
+	"Endgame: 1 infinity"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte("e7.36e10");
+	return player.inf.points.gte(1);
 }
 
 
