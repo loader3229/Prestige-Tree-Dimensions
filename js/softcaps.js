@@ -18,7 +18,10 @@ const SOFTCAPS = {
 					return softcap;
 		},
 		display() { return hasUpgrade("e", 22) && upgradeEffect("e", 22).gte(this.start()) },
-		info() { return "Starts at "+format(this.start())+"x, square rooted" },
+		info() { 
+			if(player.inf.points.gte(1))return "Starts at "+format(this.start())+"x, cube rooted"
+			return "Starts at "+format(this.start())+"x, square rooted" 
+		},
 	},
 	e22b: {
 		title: "Enhance Upgrade 22",
@@ -28,7 +31,10 @@ const SOFTCAPS = {
 					return softcap;
 		},
 		display() { return hasUpgrade("e", 22) && upgradeEffect("e", 22).gte(this.start()) },
-		info() { return "Starts at "+format(this.start())+"x, square rooted" },
+		info() { 
+			if(player.inf.points.gte(1))return "Starts at "+format(this.start())+"x, cube rooted"
+			return "Starts at "+format(this.start())+"x, square rooted"
+		},
 	},
 	gpe: {
 		title: "Generator Power Effect",
