@@ -1009,7 +1009,7 @@ addLayer("b", {
 			},
 			53: {
 				title: "Booster Upgrade 53",
-				description: "Each bought Booster Galaxy add 2 free Prestige Galaxies.",
+				description: "Each bought Booster Galaxy adds 2 free Prestige Galaxies.",
 				cost(){
 					if(player.inf.points.gte(1))return new Decimal(8e7);
 					return new Decimal(165e6);
