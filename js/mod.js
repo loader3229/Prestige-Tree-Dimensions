@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.2",
-	name: "The Hyperspace Update",
+	num: "1.0.3",
+	name: "The Nebula Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.3</h3><br>
+	- Implemented the Nebula(N) layer<br>
+	- Endgame: 4 infinities<br>
 	<h3>v1.0.2</h3><br>
 	- Implemented the Hyperspace(HS) layer<br>
 	- Endgame: 2 infinities<br>
@@ -158,12 +161,12 @@ var displayThings = [
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	"Endgame: 2 infinities"
+	"Endgame: 4 infinities"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.inf.points.gte(2);
+	return player.inf.points.gte(4);
 }
 
 
