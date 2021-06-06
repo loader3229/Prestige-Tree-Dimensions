@@ -12,7 +12,7 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.3",
+	num: "1.0.3.1",
 	name: "The Nebula Update",
 }
 
@@ -161,12 +161,12 @@ var displayThings = [
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	"Endgame: 4 infinities"
+	"Endgame: 5 infinities"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.inf.points.gte(4);
+	return player.inf.points.gte(5);
 }
 
 
@@ -181,10 +181,31 @@ function maxTickLength() {
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
 function fixOldSave(oldVersion){
+	console.log(player.inf.points);
 	if(oldVersion.startsWith("0.6") || oldVersion.startsWith("0.5") || oldVersion.startsWith("0.4") || oldVersion.startsWith("0.3") || oldVersion.startsWith("0.2") || oldVersion.startsWith("0.1")){
 		alert("Sorry. Your game is completely reset because of the addition of Enhance Dimensions.");
 		player = null
 		save();
 		window.location.reload();
+	}
+	if(oldVersion.startsWith("1.0.0") || oldVersion.startsWith("1.0.1") || oldVersion.startsWith("1.0.2") || oldVersion.startsWith("1.0.3") || oldVersion == "1.0"){
+		if(player.inf.points.gte(4)){
+			player.inf.points=new Decimal(4);
+			for(var i in layers){
+				if(typeof layers[i].row == "number"){
+					console.log(i);
+					layers[i].doReset("inf");
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),50);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),100);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),150);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),200);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),250);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),300);
+					setTimeout(layers[i].doReset.bind(layers[i],"inf"),350);
+					player.pointsTotal=new Decimal(0);
+				}
+			}
+		}
+		if(isNaN(player.inf.infpoints.sign) || isNaN(player.inf.infpoints.layer) || isNaN(player.inf.infpoints.mag))player.inf.infpoints=new Decimal(0);
 	}
 }

@@ -59,7 +59,7 @@ const SOFTCAPS = {
 		},
 		display() { return hasUpgrade("e", 34) && upgradeEffect("e", 34).gte(this.start()) && player.inf.points.gte(3) },
 		info() { 
-			return "Starts at "+format(this.start())+"x, brought to the 1.5th root"
+			return "Starts at +"+format(this.start())+", brought to the 1.5th root"
 		},
 	},
 }
