@@ -55,10 +55,13 @@ const SOFTCAPS = {
 		title: "Enhance Upgrade 34",
 		start() { 
 					let softcap=new Decimal(900).add(tmp.n.dustEffs.purple);
+					if(player.inf.points.gte(5))softcap=softcap.sub(400);
+					if(player.inf.points.gte(6))softcap=softcap.sub(200);
 					return softcap;
 		},
 		display() { return hasUpgrade("e", 34) && upgradeEffect("e", 34).gte(this.start()) && player.inf.points.gte(3) },
 		info() { 
+			if(player.inf.points.gte(5))return "Starts at "+format(this.start())+"x, square rooted"
 			return "Starts at +"+format(this.start())+", brought to the 1.5th root"
 		},
 	},

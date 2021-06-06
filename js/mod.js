@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.3.1",
-	name: "The Nebula Update",
+	num: "1.0.4",
+	name: "The Mastery Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.4</h3><br>
+	- Implemented the Mastery(MA) layer<br>
+	- Endgame: 6 infinities<br>
 	<h3>v1.0.3</h3><br>
 	- Implemented the Nebula(N) layer<br>
 	- Endgame: 4 infinities<br>
@@ -161,7 +164,7 @@ var displayThings = [
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	"Endgame: 5 infinities"
+	"Endgame: 6 infinities"
 ]
 
 // Determines when the game "ends"
@@ -189,8 +192,8 @@ function fixOldSave(oldVersion){
 		window.location.reload();
 	}
 	if(oldVersion.startsWith("1.0.0") || oldVersion.startsWith("1.0.1") || oldVersion.startsWith("1.0.2") || oldVersion.startsWith("1.0.3") || oldVersion == "1.0"){
-		if(player.inf.points.gte(4)){
-			player.inf.points=new Decimal(4);
+		if(player.inf.points.gte(6)){
+			player.inf.points=new Decimal(6);
 			for(var i in layers){
 				if(typeof layers[i].row == "number"){
 					console.log(i);
@@ -202,6 +205,7 @@ function fixOldSave(oldVersion){
 					setTimeout(layers[i].doReset.bind(layers[i],"inf"),250);
 					setTimeout(layers[i].doReset.bind(layers[i],"inf"),300);
 					setTimeout(layers[i].doReset.bind(layers[i],"inf"),350);
+					player.points=new Decimal(0);
 					player.pointsTotal=new Decimal(0);
 				}
 			}
