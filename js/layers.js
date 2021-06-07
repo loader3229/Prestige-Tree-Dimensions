@@ -8938,6 +8938,11 @@ addLayer("inf", {
 	canBuyMax:true,
 	 	 tabFormat: ["main-display",
                     "prestige-button", "resource-display",
+					["display-text",
+                        function() {
+							return 'Infinity with NaN points doesn\'t gain any Infinities.';
+						},
+                        {}],
                     ["blank", "5px"],
 					["display-text",
                         function() {
