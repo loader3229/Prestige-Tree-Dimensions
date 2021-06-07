@@ -680,3 +680,45 @@ button > * {
 #treeTab td button {
     margin: 0 10px;
 }
+
+
+
+
+.n:not(.locked):not(.bought) {
+	animation: nebula 10s ease infinite;
+}
+
+.ma:not(.locked):not(.bought) {
+	background: radial-gradient(circle, rgba(255,100,100,1) 0%, rgba(255,159,127,1) 50%);
+	background-size: 200%;
+	background-position: center;
+}
+
+.ma:not(.locked):not(.bought) {
+	animation: mastery 4s infinite;
+}
+
+
+@keyframes nebula {
+	0% {
+		background-color: #430082;
+	}
+	50% {
+		background-color: #1d007a;
+	}
+	100% {
+		background-color: #430082;
+	}
+}
+
+@keyframes mastery {
+	0% {
+		background-size: 200%;
+	}
+	50% {
+		background-size: 100%;
+	}
+	100% {
+		background-size: 200%;
+	}
+}

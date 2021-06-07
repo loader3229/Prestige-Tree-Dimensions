@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.4",
-	name: "The Mastery Update",
+	num: "1.0.5",
+	name: "The Life Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.5</h3><br>
+	- Implemented the Life Essence(L) layer<br>
+	- Endgame: 7 infinities<br>
 	<h3>v1.0.4</h3><br>
 	- Implemented the Mastery(MA) layer<br>
 	- Endgame: 6 infinities<br>
@@ -164,7 +167,7 @@ var displayThings = [
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	"Endgame: 6 infinities"
+	"Endgame: 7 infinities"
 ]
 
 // Determines when the game "ends"
@@ -191,7 +194,7 @@ function fixOldSave(oldVersion){
 		save();
 		window.location.reload();
 	}
-	if(oldVersion.startsWith("1.0.0") || oldVersion.startsWith("1.0.1") || oldVersion.startsWith("1.0.2") || oldVersion.startsWith("1.0.3") || oldVersion == "1.0"){
+	if(oldVersion.startsWith("1.0.0") || oldVersion.startsWith("1.0.1") || oldVersion.startsWith("1.0.2") || oldVersion.startsWith("1.0.3") || oldVersion.startsWith("1.0.4") || oldVersion == "1.0"){
 		if(player.inf.points.gte(6)){
 			player.inf.points=new Decimal(6);
 			for(var i in layers){
@@ -210,6 +213,7 @@ function fixOldSave(oldVersion){
 				}
 			}
 		}
-		if(isNaN(player.inf.infpoints.sign) || isNaN(player.inf.infpoints.layer) || isNaN(player.inf.infpoints.mag))player.inf.infpoints=new Decimal(0);
 	}
+	if(isNaN(player.inf.infpoints.sign) || isNaN(player.inf.infpoints.layer) || isNaN(player.inf.infpoints.mag))player.inf.infpoints=new Decimal(0);
+	if(isNaN(player.points.sign) || isNaN(player.points.layer) || isNaN(player.points.mag))player.points=new Decimal(0);
 }

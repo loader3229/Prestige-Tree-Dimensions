@@ -19,6 +19,7 @@ const SOFTCAPS = {
 		},
 		display() { return hasUpgrade("e", 22) && upgradeEffect("e", 22).gte(this.start()) },
 		info() { 
+			if(player.inf.points.gte(7))return "Starts at "+format(this.start())+"x, brought to the 3.9th root"
 			if(player.inf.points.gte(4))return "Starts at "+format(this.start())+"x, brought to the 3.7th root"
 			if(player.inf.points.gte(2))return "Starts at "+format(this.start())+"x, brought to the 3.5th root"
 			if(player.inf.points.gte(1))return "Starts at "+format(this.start())+"x, cube rooted"
@@ -35,6 +36,7 @@ const SOFTCAPS = {
 		},
 		display() { return hasUpgrade("e", 22) && upgradeEffect("e", 22).gte(this.start()) },
 		info() { 
+			if(player.inf.points.gte(7))return "Starts at "+format(this.start())+"x, brought to the 3.9th root"
 			if(player.inf.points.gte(4))return "Starts at "+format(this.start())+"x, brought to the 3.7th root"
 			if(player.inf.points.gte(2))return "Starts at "+format(this.start())+"x, brought to the 3.5th root"
 			if(player.inf.points.gte(1))return "Starts at "+format(this.start())+"x, cube rooted"
@@ -63,6 +65,18 @@ const SOFTCAPS = {
 		info() { 
 			if(player.inf.points.gte(5))return "Starts at "+format(this.start())+"x, square rooted"
 			return "Starts at +"+format(this.start())+", brought to the 1.5th root"
+		},
+	},
+	e34b: {
+		title: "Enhance Upgrade 34",
+		start() { 
+					let softcap=new Decimal(2250).add(tmp.n.dustEffs.purple);
+					if(player.inf.points.gte(7))softcap=softcap.sub(250);
+					return softcap;
+		},
+		display() { return hasUpgrade("e", 34) && upgradeEffect("e", 34).gte(this.start()) && player.inf.points.gte(6) },
+		info() { 
+			return "Starts at "+format(this.start())+"x, square rooted"
 		},
 	},
 }
