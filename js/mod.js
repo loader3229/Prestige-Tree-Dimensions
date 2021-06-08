@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.5",
-	name: "The Life Update",
+	num: "1.0.6",
+	name: "The Imperium Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.6</h3><br>
+	- Implemented the Imperium(I) layer<br>
+	- Endgame: 10 infinities<br>
 	<h3>v1.0.5</h3><br>
 	- Implemented the Life Essence(L) layer<br>
 	- Endgame: 7 infinities<br>
@@ -167,12 +170,12 @@ var displayThings = [
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},
-	"Endgame: 7 infinities"
+	"Endgame: 10 infinities"
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.inf.points.gte(7);
+	return player.inf.points.gte(10);
 }
 
 

@@ -381,6 +381,16 @@ function loadVue() {
 		`
 	})
 
+	Vue.component('stars', {
+		props: ['layer'],
+		template: `<div v-if='!player.hideStars'><div v-if='layers.ma.mastered(layer)' class='star' style='position: absolute; left: -10px; top: -10px;'></div>
+		<div v-if='false' class='star' style='position: absolute; left: 13px; top: -10px;'></div>
+		<div v-if='false' class='star' style='position: absolute; left: 36px; top: -10px;'></div>
+		<div v-if='false' class='star' style='position: absolute; left: 59px; top: -10px;'></div>
+		<div v-if='false' class='star' style='position: absolute; right: -10px; top: -10px;'></div>
+		</div>`
+	})
+	
 	// Data is an array with the structure of the tree
 	Vue.component('tree', {
 		props: ['layer', 'data'],
