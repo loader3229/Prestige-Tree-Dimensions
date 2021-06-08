@@ -3395,7 +3395,7 @@ addLayer("s", {
 					//if (x.gte("e3e9")) x = Decimal.pow(10, x.log10().times(9e18).cbrt())
 					x=Decimal.pow(3,x);
 					x=x.mul(tmp.q.quirkEff);
-					if(eff.gte(layers.inf.requires()))return layers.inf.requires();
+					if(x.gte(layers.inf.requires()))return layers.inf.requires();
 					return x;
                 },
                 display() { // Everything else displayed in the buyable button after the title
