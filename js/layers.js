@@ -16,6 +16,9 @@ addLayer("p", {
 		freeGalaxy: new Decimal(0),
     }},
     color: "#00bfbf",
+    marked(){
+        return layers.ma.mastered("p");
+    },
     requires: new Decimal(10),
     exponent(){
 		return 0.5;
@@ -871,6 +874,9 @@ addLayer("b", {
 		dim8: new Decimal(0),
     }},
     color: "#415a9e",
+    marked(){
+        return layers.ma.mastered("b");
+    },
     requires: function(){
 		if(!player.b.unlocked && player.g.unlocked)return new Decimal(1e13);
 		return new Decimal(1e6);
@@ -1629,6 +1635,9 @@ addLayer("g", {
 		dim8: new Decimal(0),
     }},
     color: "#409c6e",
+    marked(){
+        return layers.ma.mastered("g");
+    },
     requires: function(){
 		if(!player.g.unlocked && player.b.unlocked)return new Decimal(1e13);
 		return new Decimal(1e6);
@@ -2445,6 +2454,9 @@ addLayer("t", {
 		dim8: new Decimal(0)
     }},
     color: "#3f993d",
+    marked(){
+        return layers.ma.mastered("t");
+    },
     requires: function(){
 		if(!player.t.unlocked && player.s.unlocked)return new Decimal(1e240);
 		return new Decimal(1e70);
@@ -3155,6 +3167,9 @@ addLayer("s", {
 		dim: new Decimal(0),
     }},
     color: "#dfdfdf",
+    marked(){
+        return layers.ma.mastered("s");
+    },
     requires: function(){
 		if(!player.s.unlocked && player.t.unlocked)return new Decimal(1e240);
 		return new Decimal(1e70);
@@ -3722,6 +3737,9 @@ addLayer("e", {
 		dim8: new Decimal(0),
     }},
     color: "#9643a3",
+    marked(){
+        return layers.ma.mastered("e");
+    },
     requires(){
 		if(player.inf.points.gte(1))return new Decimal("1e70");
 		return new Decimal("1e1600");
@@ -4506,6 +4524,9 @@ addLayer("sb", {
 		dim8: new Decimal(0),
     }},
     color: "#494b99",
+    marked(){
+        return layers.ma.mastered("sb");
+    },
     requires: function(){
 		if(hasUpgrade("sp",23))return new Decimal(2000);
 		return new Decimal(2270);
@@ -4977,6 +4998,9 @@ addLayer("h", {
 		dim8: new Decimal(0),
     }},
     color: "#a14040",
+    marked(){
+        return layers.ma.mastered("h");
+    },
     requires: function(){
 		return new Decimal("1e490");
 	},
@@ -5915,6 +5939,9 @@ addLayer("q", {
 		time1: 0
     }},
     color: "#ff2bf2",
+    marked(){
+        return layers.ma.mastered("q");
+    },
     requires: function(){
 		return new Decimal("1e7000");
 	},
@@ -6298,6 +6325,9 @@ addLayer("sg", {
 		dim8: new Decimal(0),
     }},
     color: "#409c6e",
+    marked(){
+        return layers.ma.mastered("sg");
+    },
     requires: function(){
 		if(hasUpgrade("sp",23))return new Decimal(10000);
 		if(player.inf.points.gte(1))return new Decimal(23900);
@@ -6814,6 +6844,9 @@ addLayer("ss", {
 		dim8: new Decimal(0),
     }},
     color: "white",
+    marked(){
+        return layers.ma.mastered("ss");
+    },
     requires: function(){
 		return new Decimal(300);
 	},
@@ -7330,6 +7363,9 @@ addLayer("o", {
 		dim8: new Decimal(0),
     }},
         color: "#ffcd00",
+        marked(){
+            return layers.ma.mastered("o");
+        },
 		nodeStyle() {return {
 			"background": (player.o.unlocked||canReset("o"))?("radial-gradient(#ffcd00, #ff4300)"):"#bf8f8f" ,
         }},
@@ -8026,6 +8062,9 @@ addLayer("m", {
 			},
     }},
         color: "#eb34c0",
+    marked(){
+        return layers.ma.mastered("m");
+    },
     requires: new Decimal("1e2100"),
     resource: "magic",
     baseResource: "hindrance spirit", 
@@ -8388,6 +8427,9 @@ addLayer("ba", {
 		ndim4: new Decimal(0),
     }},
         color: "#fced9f",
+    marked(){
+        return layers.ma.mastered("ba");
+    },
     requires: new Decimal("1e1240"),
     resource: "balance energy",
     baseResource: "quirks", 
@@ -8784,6 +8826,9 @@ addLayer("ps", {
 		points: new Decimal(0),
     }},
         color: "#b38fbf",
+    marked(){
+        return layers.ma.mastered("ps");
+    },
     requires(){
 		if(player.inf.points.gte(2))return new Decimal("1e20000");
 		return new Decimal("1e45000");
@@ -9040,6 +9085,9 @@ addLayer("sp", {
 		dim8: new Decimal(0),
     }},
     color: "#00a7bf",
+    marked(){
+        return layers.ma.mastered("sp");
+    },
     requires: function(){
 		if(player.inf.points.gte(8))return new Decimal("e2e9");
 		if(player.inf.points.gte(6))return new Decimal("e230e7");
@@ -9373,6 +9421,9 @@ addLayer("hs", {
 		points: new Decimal(0),
     }},
     color: "white",
+    marked(){
+        return layers.ma.mastered("hs");
+    },
     requires: function(){
 		return new Decimal(80000);
 	},
@@ -9744,6 +9795,9 @@ addLayer("n", {
 		odim1: new Decimal(0),
     }},
     color: "#430082",
+    marked(){
+        return layers.ma.mastered("n");
+    },
 		nodeStyle() { return {
 			color: (player.oldStyle?"white":"rgba(255, 255, 255, 0.75)"),
 		}},
